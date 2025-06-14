@@ -7,11 +7,15 @@
 
 ---
 
+[![View on GitHub](https://img.shields.io/badge/GitHub-prototypeai100/PrototypeAI-blue?logo=github)](https://github.com/prototypeai100/PrototypeAI)
+
+---
+
 ## 🚀 What is this?
 
 - An open-source Streamlit app to orchestrate conversations between two leading AIs: **ChatGPT (gpt-4-turbo)** and **Grok (grok-3-latest)**
 - The AIs debate and build on each other's ideas. At the end, you get a synthesized answer, blending the best from both.
-- You can use this for brainstorming, tech Q&A, or just to see how two AIs can disagree and converge!
+- Use this for brainstorming, tech Q&A, or to see how two AIs can disagree and converge!
 
 ---
 
@@ -39,7 +43,7 @@
 
 1. **Clone this repo:**
     ```bash
-    git clone https://github.com/yourusername/PrototypeAI.git
+    git clone https://github.com/prototypeai100/PrototypeAI.git
     cd PrototypeAI
     ```
 
