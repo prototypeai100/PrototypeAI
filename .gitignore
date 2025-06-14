@@ -1,0 +1,26 @@
+# Python & Streamlit
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+.DS_Store
+
+# OS/Jupyter
+.ipynb_checkpoints/
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Data/output
+*.log
+*.sqlite3
+*.db
+
+# Images/assets (do not ignore your public assets if any!)
+assets/PrototypeAI_Banner.png
+
+# Do not ignore .env.example!
+!.env.example
