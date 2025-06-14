@@ -1,4 +1,4 @@
-# Prototype AI: Multi-AI Debate & Co-Creation App
+# Prototype AI: Multi-AI Orchestration App
 
 ![Prototype AI Banner](assets/PrototypeAI_Banner.png)
 
@@ -24,9 +24,9 @@
 
 ## 📝 Features
 
-- **True Debate:** Both AIs answer, critique, and build upon each other's ideas.
+- **True Orchestration:** Both AIs answer, critique, and build upon each other's ideas.
 - **Session Memory:** The app remembers your ongoing discussion in each session.
-- **Synthesis:** After debating, both AIs co-create a final answer for you.
+- **Synthesis:** After orchestrating, both AIs co-create a final answer for you.
 - **Multiple Modes:** Co-Creation (default), with roadmap for “Competitive” and “Critical” debate.
 - **User Tip:** For quick, easy-to-read answers, just add "Keep your answer under 150 words."
 - **API Cost Estimate:** See your token usage for OpenAI.
@@ -39,8 +39,8 @@
 
 1. **Clone this repo:**
     ```bash
-    git clone https://github.com/yourusername/prototype-ai-co-creation.git
-    cd prototype-ai-co-creation
+    git clone https://github.com/yourusername/PrototypeAI.git
+    cd PrototypeAI
     ```
 
 2. **Install Python 3.8+ (not 3.7 or below):**
