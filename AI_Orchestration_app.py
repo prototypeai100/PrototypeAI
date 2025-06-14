@@ -14,12 +14,6 @@
 #  limitations under the License.
 # =============================================================================
 
-# ============================================
-#       SETUP & REQUIREMENTS FOR WINDOWS
-# ============================================
-# [setup instructions unchanged, omitted for brevity]
-# ============================================
-
 import streamlit as st
 import openai
 import requests
