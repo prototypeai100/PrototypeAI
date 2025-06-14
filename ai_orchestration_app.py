@@ -340,3 +340,11 @@ if run_btn and user_question.strip():
     )
 
 # === PSEUDO CONTINUE BUTTON LOGIC ===
+if proceed_3:
+    st.info("Pseudo: Would proceed 3 more rounds of AI-to-AI exchange here (not yet implemented).")
+if proceed_5:
+    st.info("Pseudo: Would proceed 5 more rounds of AI-to-AI exchange here (not yet implemented).")
+if proceed_10:
+    st.info("Pseudo: Would proceed 10 more rounds of AI-to-AI exchange here (not yet implemented).")
+
+# ================= END OF FILE =================
