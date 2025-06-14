@@ -60,4 +60,49 @@
    - [Grok (xAI)](https://x.ai) *(currently by invitation or paid plan)*
 
 5. **Create your `.env` file:**  
-   *(never commit your real keys! use `.env.example` as a template)*  
+   *(never commit your real keys! use `.env.example` as a template)*
+
+6. **Run the app:**
+    ```bash
+    streamlit run ai_orchestration_app.py
+    ```
+
+7. **Ask your question and watch the AIs debate and synthesize an answer for you!**
+
+---
+
+## 🛣️ Roadmap & Future Vision
+
+- **Multimedia Support:**  
+  Enable video, audio, and image inputs/outputs, so users can interact with AIs not just via text, but also with voice, video, and other media.  
+  *Imagine uploading a video or speaking your question to get a real-time AI panel debate—making the experience richer and more accessible to everyone.*
+
+- **Business & Commercial Applications:**  
+  This approach empowers new businesses to **leverage multiple AIs for smarter, more adaptive solutions**. Enterprises and developers can select the best AI for each use case, combine insights from different engines, and offer users true freedom—**letting anyone pick or blend the right AI at any moment**.
+
+- **Freedom of AI Choice:**  
+  Our vision is to let users orchestrate, mix, and match any number of AIs—unlocking creativity and innovation in personal and professional contexts.  
+  *The future is open, collaborative, and user-powered.*
+
+- **Scalability & Extensibility:**  
+  Plans to add support for more AI engines (Claude, Gemini, etc.) and custom orchestration logic, so anyone can build their own AI “panel of experts.”
+
+---
+
+## 🤝 Contributing
+
+- Open to feedback, issues, and pull requests!
+- See [issues](https://github.com/prototypeai100/PrototypeAI/issues) or suggest new features via GitHub.
+
+---
+
+## 📄 License
+
+This project is licensed under the [Apache 2.0 License](LICENSE).
+
+---
+
+## ⭐ Stay in Touch
+
+- [YouTube: Prototype AI](https://www.youtube.com/@PrototypeAI01)
+- [GitHub: prototypeai100/PrototypeAI](https://github.com/prototypeai100/PrototypeAI)
