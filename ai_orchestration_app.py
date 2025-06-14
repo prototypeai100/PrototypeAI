@@ -14,6 +14,34 @@
 #  limitations under the License.
 # =============================================================================
 
+# ============================================
+#       SETUP & REQUIREMENTS FOR WINDOWS
+# ============================================
+# 1. Python 3.8 or newer (3.8–3.13 recommended; 3.14+ pre-release is not advised yet)
+#    - Download from https://www.python.org/downloads/
+#    - Python 3.7 or lower is NOT supported.
+#
+# 2. pip (Python’s package manager; included with Python)
+#
+# 3. Install required libraries using pip:
+#       pip install streamlit openai python-dotenv requests
+#
+# 4. Create a .env file in the same folder as this script, with:
+#       OPENAI_API_KEY=sk-...your_openai_key_here...
+#       GROK_API_KEY=...your_grok_key_here...
+#
+# 5. Place this .py code file in the same folder as your .env file.
+#
+# 6. To run the app:
+#       streamlit run ai_orchestration_app.py
+#
+# -------------------------
+# SECURITY REMINDER:
+# - Never share or commit your .env file or API keys!
+# - In production, use real OS environment variables—not .env files.
+# - grok-3-latest and gpt-4-turbo API keys are paid as of June 2025; check your usage and costs.
+# ============================================
+
 import streamlit as st
 import openai
 import requests
@@ -221,6 +249,9 @@ if competitive_mode:
 
 with st.expander("🛠️ Developer Reminders / Roadmap"):
     st.markdown("""
+- **Multimedia Input/Output:** Support for voice, video, or image-based conversation—so AIs can co-create with users in any medium, not just text.
+- **Commercial Impact:** Enable plug-and-play of multiple AI engines for business users, empowering enterprises to select, combine, or swap AIs freely for each need.
+- **Freedom of AI Choice:** Give end users the power to pick and blend the best AIs for any question, anytime—unlocking new potential for personal and professional creativity.
 - **Implement Critical Mode:** Add advanced orchestration where AIs "debate" and rigorously critique each other.
 - **Implement Competitive Mode:** Add orchestration where AIs are rewarded for being more accurate, creative, or insightful than the other.
 - **Session Memory:** Use Streamlit `st.session_state` to persist chat histories, enabling ongoing conversations—like ChatGPT and Grok web UIs.
@@ -309,11 +340,3 @@ if run_btn and user_question.strip():
     )
 
 # === PSEUDO CONTINUE BUTTON LOGIC ===
-if proceed_3:
-    st.info("Pseudo: Would proceed 3 more rounds of AI-to-AI exchange here (not yet implemented).")
-if proceed_5:
-    st.info("Pseudo: Would proceed 5 more rounds of AI-to-AI exchange here (not yet implemented).")
-if proceed_10:
-    st.info("Pseudo: Would proceed 10 more rounds of AI-to-AI exchange here (not yet implemented).")
-
-# ================= END OF FILE =================
