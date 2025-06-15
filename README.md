@@ -13,7 +13,7 @@
 
 ## 🚀 What is this?
 
-- An open-source Streamlit app to orchestrate conversations between two leading AIs: **ChatGPT (gpt-4-turbo)** and **Grok (grok-3-latest)**
+- An open-source Streamlit app to orchestrate conversations between multiple leading AIs: **ChatGPT (gpt-4-turbo)** and **Grok (grok-3-latest)**
 - The AIs debate and build on each other's ideas. At the end, you get a synthesized answer, blending the best from both.
 - Use this for brainstorming, tech Q&A, or to see how two AIs can disagree and converge!
 
@@ -71,6 +71,16 @@
 
 ---
 
+## 🔎 Multi-AI Uniqueness Reviews
+
+We regularly ask the world’s leading AIs (Perplexity, Grok, Claude, ChatGPT, Gemini, and others) to check if this project is truly unique, and to evaluate its value for society.  
+**Read the latest results:**  
+[ai_search_results/2025-06-14-uniqueness-review.md](ai_search_results/2025-06-14-uniqueness-review.md)
+
+Find all past and future reviews in the [`ai_search_results`](ai_search_results/) folder.
+
+---
+
 ## 🛣️ Roadmap & Future Vision
 
 - **Multimedia Support:**  
@@ -106,3 +116,4 @@ This project is licensed under the [Apache 2.0 License](LICENSE).
 
 - [YouTube: Prototype AI](https://www.youtube.com/@PrototypeAI01)
 - [GitHub: prototypeai100/PrototypeAI](https://github.com/prototypeai100/PrototypeAI)
+
