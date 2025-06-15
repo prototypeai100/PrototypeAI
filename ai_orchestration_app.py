@@ -164,124 +164,104 @@ SYNTHESIZE_PROMPT = (
 
 # ========== MAIN TITLE (ALWAYS ON TOP) ==========
 st.markdown("""
-# 🧑‍💻 ➡️ 🤖🤝🤖 ➡️ 🧑
+# 🧑 ➡️ 🤖🤝🤖 ➡️ 🧑
 ### AI-to-AI Debate & Co-Creation, Centered on You
 """)
 
-# ========== TOP EXPANDER: HOW IT WORKS & MODES & FLOW ==========
-with st.expander("How It Works: Modes & Flow"):
-    st.markdown("""
-**You start the conversation at your computer.  
-AIs debate and co-create—and the best answers come back, just for you!**
+# ========== INSTRUCTIONAL UI BLOCKS COMMENTED OUT FOR CLEAN DISPLAY ==========
+# ========= DO NOT DELETE: Important instructions for further development ======
+#
+# with st.expander("How It Works: Modes & Flow"):
+#     st.markdown(\"\"\"
+# **You start the conversation at your computer.  
+# AIs debate and co-create—and the best answers come back, just for you!**
+#
+# **Co-Creation:** Both AIs build, debate, and synthesize ideas (default mode, runs on 'Run Co-Creation').  
+# **Competitive & Critical:** Advanced orchestration modes—coming soon! See roadmap below.
+# ---
+# **Co-Creation Mode (default):**
+# - You enter a topic or question.
+# - ChatGPT and Grok each respond in their own style.
+# - The AIs critique, debate, and build on each other's answers.
+# - At the end, their best points are combined into one final, synthesized answer—by BOTH AIs!
+# **Competitive Mode:**
+# - Each AI is rewarded for outperforming the other—whether by creativity, clarity, or persuasive power.
+# Goal: Simulate a competition where the best ideas, arguments, or insights rise to the top, not just agreement.
+# **Critical Mode:**
+# - Both AIs rigorously critique and challenge each other, focusing on logical flaws, factual accuracy, and missing perspectives.
+# Goal: Simulate an in-depth debate, stress-testing each AI’s reasoning, and surfacing the strongest, most reliable arguments.
+# \"\"\")
+#
+# col1, col2 = st.columns(2)
+# with col1:
+#     st.markdown(\"\"\"
+#     <div style='background:#eef2ff; border-radius:7px; padding:14px 18px; margin-bottom:2px; font-size:1.07em;'>
+#     <b>📌 Current AI Models</b><br>
+#     ChatGPT Model: <span style='color:#1e88e5'>gpt-4-turbo</span><br>
+#     Grok Model: <span style='color:#10a37f'>grok-3-latest</span>
+#     </div>
+#     \"\"\", unsafe_allow_html=True)
+# with col2:
+#     if total_openai_tokens > 0:
+#         estimated_cost = total_openai_tokens / 1_000_000 * 10 # $10/1M tokens output (update as needed)
+#         gpt_cost_str = f"${estimated_cost:.4f}"
+#     else:
+#         gpt_cost_str = "$0.0000"
+#     st.markdown(f\"\"\"
+#     <div style='background:#fef6e0; border-radius:7px; padding:14px 18px; margin-bottom:2px; font-size:1.07em;'>
+#     <b>💰 Estimated API Charges (Pseudo Estimate)</b><br>
+#     ChatGPT (GPT-4-turbo): {gpt_cost_str} <span style='color:#aaa'>(Display only, not guaranteed accurate)</span><br>
+#     Grok: <span style='color:#999'>Unknown (xAI does not provide cost info)</span><br>
+#     <small>Note: ChatGPT cost estimate is for reference only. Always check your OpenAI dashboard for billing.</small>
+#     </div>
+#     \"\"\", unsafe_allow_html=True)
+#
+# with st.expander("🛠️ Developer Reminders / Roadmap"):
+#     st.markdown(\"\"\"
+# - Multimedia Input/Output: Support for voice, video, or image-based conversation—so AIs can co-create with users in any medium, not just text.
+# - Commercial Impact: Enable plug-and-play of multiple AI engines for business users, empowering enterprises to select, combine, or swap AIs freely for each need.
+# - Freedom of AI Choice: Give end users the power to pick and blend the best AIs for any question, anytime—unlocking new potential for personal and professional creativity.
+# - Implement Critical Mode: Add advanced orchestration where AIs "debate" and rigorously critique each other.
+# - Implement Competitive Mode: Add orchestration where AIs are rewarded for being more accurate, creative, or insightful than the other.
+# - Session Memory: Use Streamlit st.session_state to persist chat histories, enabling ongoing conversations—like ChatGPT and Grok web UIs.
+# - User Suggestion for Short Answers: Remind users to specify a word limit (e.g., “under 150 words”) for quick, easy-to-read answers.
+# - Unified Error Handling: Centralize API error management for robustness.
+# - Security: Use only environment variables for secrets. Avoid any plaintext files.
+# - Shared Logic for AI Calls: If API schemas converge, merge ask_chatgpt/ask_grok logic.
+# - Feedback Loop / Self-improvement: Plan for iterative prompting or learning from prior outcomes.
+# - User/Dev UI Separation: Allow toggling developer info so end users aren’t confused.
+# - Metrics & Logging: Add usage analytics and outcome evaluation.
+# - Documentation: Write usage and dev docs.
+# - Testing: Add unit/integration tests for orchestration logic.
+# - Round Control: Allow user or developer to select number of debate rounds (e.g., 3, 5, or 10). See round control pseudo-code below.
+# \"\"\")
+#
+# proceed_3 = st.button("Proceed 3 More Rounds (Pseudo)")
+# proceed_5 = st.button("Proceed 5 More Rounds (Pseudo)")
+# proceed_10 = st.button("Proceed 10 More Rounds (Pseudo)")
+# if critical_mode:
+#     st.warning("Critical Mode is currently a placeholder. In the future, AIs will debate more aggressively, seeking to expose each other’s weaknesses before synthesizing the best answer. (See developer roadmap.)")
+# if competitive_mode:
+#     st.warning("Competitive Mode is currently a placeholder. In the future, AIs will strive to outperform each other, and the app will highlight the most original, insightful, or compelling answer. (See developer roadmap.)")
+#
+# ========= END OF INSTRUCTIONAL BLOCKS =======================================
 
-**Co-Creation:** Both AIs build, debate, and synthesize ideas (default mode, runs on 'Run Co-Creation').  
-**Competitive & Critical:** Advanced orchestration modes—coming soon! See roadmap below.
-
----
-
-**Co-Creation Mode (default):**
-- You enter a topic or question.
-- ChatGPT and Grok each respond in their own style.
-- The AIs critique, debate, and build on each other's answers.
-- At the end, their best points are combined into one final, synthesized answer—by BOTH AIs!
-
-**Competitive Mode:**
-- Each AI is rewarded for outperforming the other—whether by creativity, clarity, or persuasive power.  
-*Goal: Simulate a competition where the best ideas, arguments, or insights rise to the top, not just agreement.*
-
-**Critical Mode:**
-- Both AIs rigorously critique and challenge each other, focusing on logical flaws, factual accuracy, and missing perspectives.  
-*Goal: Simulate an in-depth debate, stress-testing each AI’s reasoning, and surfacing the strongest, most reliable arguments.*
-""")
-
-# ========== MODEL & CHARGE PANELS SIDE BY SIDE ==========
-col1, col2 = st.columns(2)
-with col1:
-    st.markdown("""
-    <div style='background:#eef2ff; border-radius:7px; padding:14px 18px; margin-bottom:2px; font-size:1.07em;'>
-    <b>📌 Current AI Models</b><br>
-    ChatGPT Model: <span style='color:#1e88e5'>gpt-4-turbo</span><br>
-    Grok Model: <span style='color:#10a37f'>grok-3-latest</span>
-    </div>
-    """, unsafe_allow_html=True)
-with col2:
-    if total_openai_tokens > 0:
-        estimated_cost = total_openai_tokens / 1_000_000 * 10  # $10/1M tokens output (update as needed)
-        gpt_cost_str = f"${estimated_cost:.4f}"
-    else:
-        gpt_cost_str = "$0.0000"
-    st.markdown(f"""
-    <div style='background:#fef6e0; border-radius:7px; padding:14px 18px; margin-bottom:2px; font-size:1.07em;'>
-    <b>💰 Estimated API Charges (Pseudo Estimate)</b><br>
-    ChatGPT (GPT-4-turbo): {gpt_cost_str} <span style='color:#aaa'>(Display only, not guaranteed accurate)</span><br>
-    Grok: <span style='color:#999'>Unknown (xAI does not provide cost info)</span><br>
-    <small>Note: ChatGPT cost estimate is for reference only. Always check your OpenAI dashboard for billing.</small>
-    </div>
-    """, unsafe_allow_html=True)
-
-# ========== USER TIP & INPUT ==========
-st.markdown(
-    "<div style='color:#666;font-size:1.04em;margin-bottom:6px;'>"
-    "💡 <b>Tip:</b> For a fast, easy-to-read answer, just add: <i>“Keep your answer under 150 words.”</i>"
-    "</div>",
-    unsafe_allow_html=True,
-)
-
+# ========== MAIN INPUT & COLLABORATION BUTTON ==========
 user_question = st.text_area(
     "",
     height=100,
     placeholder="Describe a question, challenge, or topic for ChatGPT and Grok to debate and co-create an answer."
 )
 
-# ========== FUNCTIONAL BUTTONS IN A ROW ==========
-colA, colB, colC = st.columns([1, 1, 1])
-with colA:
-    run_btn = st.button("▶️ Run Co-Creation", key="co_creation", use_container_width=True)
-with colB:
-    critical_mode = st.button("🛡️ Try Critical Mode (In Development)", key="critical", use_container_width=True)
-with colC:
-    competitive_mode = st.button("🏆 Try Competitive Mode (In Development)", key="competitive", use_container_width=True)
+run_btn = st.button("▶️ Run Co-Creation", key="co_creation", use_container_width=True)
 
-if critical_mode:
-    st.warning("Critical Mode is currently a placeholder. In the future, AIs will debate more aggressively, seeking to expose each other’s weaknesses before synthesizing the best answer. (See developer roadmap.)")
-if competitive_mode:
-    st.warning("Competitive Mode is currently a placeholder. In the future, AIs will strive to outperform each other, and the app will highlight the most original, insightful, or compelling answer. (See developer roadmap.)")
-
-with st.expander("🛠️ Developer Reminders / Roadmap"):
-    st.markdown("""
-- **Multimedia Input/Output:** Support for voice, video, or image-based conversation—so AIs can co-create with users in any medium, not just text.
-- **Commercial Impact:** Enable plug-and-play of multiple AI engines for business users, empowering enterprises to select, combine, or swap AIs freely for each need.
-- **Freedom of AI Choice:** Give end users the power to pick and blend the best AIs for any question, anytime—unlocking new potential for personal and professional creativity.
-- **Implement Critical Mode:** Add advanced orchestration where AIs "debate" and rigorously critique each other.
-- **Implement Competitive Mode:** Add orchestration where AIs are rewarded for being more accurate, creative, or insightful than the other.
-- **Session Memory:** Use Streamlit `st.session_state` to persist chat histories, enabling ongoing conversations—like ChatGPT and Grok web UIs.
-- **User Suggestion for Short Answers:** Remind users to specify a word limit (e.g., “under 150 words”) for quick, easy-to-read answers.
-- **Unified Error Handling:** Centralize API error management for robustness.
-- **Security:** Use only environment variables for secrets. Avoid any plaintext files.
-- **Shared Logic for AI Calls:** If API schemas converge, merge ask_chatgpt/ask_grok logic.
-- **Feedback Loop / Self-improvement:** Plan for iterative prompting or learning from prior outcomes.
-- **User/Dev UI Separation:** Allow toggling developer info so end users aren’t confused.
-- **Metrics & Logging:** Add usage analytics and outcome evaluation.
-- **Documentation:** Write usage and dev docs.
-- **Testing:** Add unit/integration tests for orchestration logic.
-- **Round Control:** Allow user or developer to select number of debate rounds (e.g., 3, 5, or 10). See round control pseudo-code below.
-""")
-
-# ====== ROUND CONTROL PSEUDO-CODE ======
-# (unchanged, omitted for brevity)
-
-# ========== MAIN LOGIC ==========
-
-proceed_3 = st.button("Proceed 3 More Rounds (Pseudo)")
-proceed_5 = st.button("Proceed 5 More Rounds (Pseudo)")
-proceed_10 = st.button("Proceed 10 More Rounds (Pseudo)")
-
-# === SESSION MEMORY: Persist chat history per session ===
+# ========== SESSION MEMORY ==========
 if 'chatgpt_history' not in st.session_state:
     st.session_state['chatgpt_history'] = []
 if 'grok_history' not in st.session_state:
     st.session_state['grok_history'] = []
 
+# ========== MAIN LOGIC ==========
 if run_btn and user_question.strip():
     chatgpt_history = []
     grok_history = []
@@ -318,12 +298,47 @@ if run_btn and user_question.strip():
     final_synthesis_chatgpt = ask_chatgpt(synthesis_prompt)
     final_synthesis_grok = ask_grok(synthesis_prompt, GROK_API_KEY)
 
-    # Display both side by side
+    # === Synthesis Evaluation by BOTH AIs ===
+    evaluation_prompt = f"""
+You are an impartial reviewer. Compare this final synthesis to the single answers by ChatGPT and Grok.
+1. Is the synthesis more complete, clearer, or does it miss anything important?
+2. If it is not clearly better, state what is missing or could be improved.
+Here is the original user question:
+{user_question.strip()}
+
+ChatGPT's last answer:
+{gpt_response}
+
+Grok's last answer:
+{grok_response}
+
+Final Synthesis:
+{{synthesis_text}}
+
+In 2-4 bullet points, compare the synthesis to both individual answers. 
+"""
+
+    chatgpt_synth_eval = ask_chatgpt(evaluation_prompt.format(synthesis_text=final_synthesis_chatgpt))
+    grok_synth_eval = ask_grok(evaluation_prompt.format(synthesis_text=final_synthesis_grok), GROK_API_KEY)
+
+    # Display both syntheses side by side
     col1, col2 = st.columns(2)
     with col1:
         ai_message_box(final_synthesis_chatgpt, "ChatGPT Synthesis")
+        st.markdown("""
+        <div style='margin-top:10px; padding:15px; background:#f5f5fc; border-radius:12px; font-size:1.06em; box-shadow:0 1px 3px #0001'>
+            <b>🧠 ChatGPT: Synthesis Self-Assessment</b><br>
+            {}
+        </div>
+        """.format(chatgpt_synth_eval), unsafe_allow_html=True)
     with col2:
         ai_message_box(final_synthesis_grok, "Grok Synthesis")
+        st.markdown("""
+        <div style='margin-top:10px; padding:15px; background:#f5f5fc; border-radius:12px; font-size:1.06em; box-shadow:0 1px 3px #0001'>
+            <b>🤖 Grok: Synthesis Self-Assessment</b><br>
+            {}
+        </div>
+        """.format(grok_synth_eval), unsafe_allow_html=True)
 
     st.markdown(
         """
@@ -338,13 +353,5 @@ if run_btn and user_question.strip():
         """,
         unsafe_allow_html=True,
     )
-
-# === PSEUDO CONTINUE BUTTON LOGIC ===
-if proceed_3:
-    st.info("Pseudo: Would proceed 3 more rounds of AI-to-AI exchange here (not yet implemented).")
-if proceed_5:
-    st.info("Pseudo: Would proceed 5 more rounds of AI-to-AI exchange here (not yet implemented).")
-if proceed_10:
-    st.info("Pseudo: Would proceed 10 more rounds of AI-to-AI exchange here (not yet implemented).")
 
 # ================= END OF FILE =================
