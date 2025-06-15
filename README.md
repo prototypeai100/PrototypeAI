@@ -1,7 +1,5 @@
 # Prototype AI: Multi-AI Orchestration App
 
-![Prototype AI Banner](assets/PrototypeAI_Banner.png)
-
 > **Curious what happens when AIs talk to each other?**
 > This app lets ChatGPT and Grok debate, collaborate, and synthesize ideas—like a panel of digital minds, just for you!
 
