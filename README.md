@@ -54,8 +54,8 @@
     ```
 
 4. **Get your API keys:**  
-   - [OpenAI (ChatGPT)](https://platform.openai.com/api-keys)  
-   - [Grok (xAI)](https://x.ai) *(currently by invitation or paid plan)*
+   - [OpenAI (ChatGPT)](https://chatgpt.com) *(sign in for API and usage)*  
+   - [Grok (xAI)](https://grok.com) *(sign in for access or API keys—currently by invitation or paid plan)*
 
 5. **Create your `.env` file:**  
    *(never commit your real keys! use `.env.example` as a template)*
