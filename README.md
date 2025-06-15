@@ -73,11 +73,10 @@
 
 ## 🔎 Multi-AI Uniqueness Reviews
 
-We regularly ask the world’s leading AIs (Perplexity, Grok, Claude, ChatGPT, Gemini, and others) to check if this project is truly unique, and to evaluate its value for society.  
-**Read the latest results:**  
-[ai_search_results/2025-06-14-uniqueness-review.md](ai_search_results/2025-06-14-uniqueness-review.md)
+We regularly ask the world’s leading AIs (Perplexity, Grok, Claude, ChatGPT, Gemini, and others) to check if this project is truly unique, and to evaluate its value for society.
 
-Find all past and future reviews in the [`ai_search_results`](ai_search_results/) folder.
+**Read the latest results:**  
+[2025-06-14-uniqueness-review.md](2025-06-14-uniqueness-review.md)
 
 ---
 
@@ -116,4 +115,3 @@ This project is licensed under the [Apache 2.0 License](LICENSE).
 
 - [YouTube: Prototype AI](https://www.youtube.com/@PrototypeAI01)
 - [GitHub: prototypeai100/PrototypeAI](https://github.com/prototypeai100/PrototypeAI)
-
