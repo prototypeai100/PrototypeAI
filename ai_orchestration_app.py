@@ -1,46 +1,8 @@
 # =============================================================================
 #  Copyright 2025 prototypeai100
-#
 #  Licensed under the Apache License, Version 2.0 (the "License");
-#  you may not use this file except in compliance with the License.
-#  You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-#  Unless required by applicable law or agreed to in writing, software
-#  distributed under the License is distributed on an "AS IS" BASIS,
-#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#  See the License for the specific language governing permissions and
-#  limitations under the License.
+#  http://www.apache.org/licenses/LICENSE-2.0
 # =============================================================================
-
-# ============================================
-#       SETUP & REQUIREMENTS FOR WINDOWS
-# ============================================
-# 1. Python 3.8 or newer (3.8–3.13 recommended; 3.14+ pre-release is not advised yet)
-#    - Download from https://www.python.org/downloads/
-#    - Python 3.7 or lower is NOT supported.
-#
-# 2. pip (Python’s package manager; included with Python)
-#
-# 3. Install required libraries using pip:
-#       pip install streamlit openai python-dotenv requests
-#
-# 4. Create a .env file in the same folder as this script, with:
-#       OPENAI_API_KEY=sk-...your_openai_key_here...
-#       GROK_API_KEY=...your_grok_key_here...
-#
-# 5. Place this .py code file in the same folder as your .env file.
-#
-# 6. To run the app:
-#       streamlit run ai_orchestration_app.py
-#
-# -------------------------
-# SECURITY REMINDER:
-# - Never share or commit your .env file or API keys!
-# - In production, use real OS environment variables—not .env files.
-# - grok-3-latest and gpt-4-turbo API keys are paid as of June 2025; check your usage and costs.
-# ============================================
 
 import streamlit as st
 import openai
@@ -48,11 +10,10 @@ import requests
 import os
 from dotenv import load_dotenv
 
-# ========== API Key & Security Notes ==========
-load_dotenv()  # Loads .env from the current directory if present
+load_dotenv()
 
 st.set_page_config(
-    page_title="🧑 ➡️ 🤖🤝🤖 ➡️ 🧑  AI-to-AI Debate & Co-Creation",
+    page_title="🧑 ➡️ 🤖🤝🤖 ➡️ 🧑  AI-to-AI Enhanced Debate",
     layout="wide",
     page_icon="🤖"
 )
@@ -72,16 +33,24 @@ openai.api_key = OPENAI_API_KEY
 # ========== STYLE HELPERS ==========
 CHATGPT_COLOR = "#d1e7dd"
 GROK_COLOR = "#ffe3cc"
+CRITIQUE_COLOR = "#f9ded7"
+SELF_EVAL_COLOR = "#fff9e2"
 
-def ai_message_box(content, who):
+def ai_message_box(content, who, color=None):
     if who == "ChatGPT":
-        color = CHATGPT_COLOR
+        color = color or CHATGPT_COLOR
         icon = "🧠"
     elif who == "Grok":
-        color = GROK_COLOR
+        color = color or GROK_COLOR
         icon = "🤖"
+    elif "critique" in who.lower():
+        color = color or CRITIQUE_COLOR
+        icon = "⚖️"
+    elif "self-eval" in who.lower():
+        color = color or SELF_EVAL_COLOR
+        icon = "🔍"
     else:
-        color = "#e6f0fa"
+        color = color or "#e6f0fa"
         icon = "🏁"
     st.markdown(
         f"""
@@ -93,10 +62,7 @@ def ai_message_box(content, who):
     )
 
 # ========== AI QUERY FUNCTIONS ==========
-total_openai_tokens = 0
-
 def ask_chatgpt(prompt, history=None, system="You are ChatGPT, a thoughtful, detail-oriented AI."):
-    global total_openai_tokens
     messages = [
         {"role": "system", "content": system}
     ]
@@ -109,11 +75,6 @@ def ask_chatgpt(prompt, history=None, system="You are ChatGPT, a thoughtful, det
         max_tokens=2048,
         temperature=0.5
     )
-    try:
-        if hasattr(response, "usage") and hasattr(response.usage, "total_tokens"):
-            total_openai_tokens += response.usage.total_tokens
-    except Exception:
-        pass
     return response.choices[0].message.content.strip()
 
 def ask_grok(prompt, api_key, history=None, system="You are Grok, a concise, creative, slightly witty AI."):
@@ -154,6 +115,26 @@ GROK_VOICE = (
     "Begin your answer with: 'Hey, here’s Grok’s take:'"
 )
 
+CRITIQUE_CHATGPT = (
+    "You are ChatGPT, an expert AI debate judge. Carefully read the previous answer by Grok and analyze it for any logical flaws, inaccuracies, or points needing clarification. "
+    "Give a constructive but direct critique, mentioning strengths briefly and focusing on what could be improved, clarified, or corrected. "
+    "Begin your response: 'As ChatGPT, here’s my critique of Grok’s answer:'"
+)
+
+CRITIQUE_GROK = (
+    "You are Grok, a sharp and witty AI. Your job is to critically evaluate ChatGPT's previous answer. Point out any gaps, mistakes, or areas for improvement, and do so with your usual direct, informal style. "
+    "Highlight strengths only briefly. "
+    "Begin your response: 'Hey, Grok here—here’s what I think about ChatGPT’s answer:'"
+)
+
+SELF_EVAL_CHATGPT = (
+    "Reflect on your latest answer as ChatGPT. What did you do well, what could be improved, and what would you do differently next time? Keep it honest and analytical."
+)
+
+SELF_EVAL_GROK = (
+    "Reflect on your latest answer as Grok. What was your strongest point, and what would you do differently next round? Be concise and direct."
+)
+
 SYNTHESIZE_PROMPT = (
     "Imagine you're a friendly and enthusiastic moderator, summarizing the best ideas from a creative AI panel. "
     "Your job is to combine the top points from ChatGPT and Grok into one clear, engaging answer that would excite a curious YouTube viewer. "
@@ -162,196 +143,138 @@ SYNTHESIZE_PROMPT = (
     "For complicated topics, use short bullet points or a simple table for clarity."
 )
 
-# ========== MAIN TITLE (ALWAYS ON TOP) ==========
+DIFFERENCE_PROMPT = (
+    "You are an impartial AI moderator. Compare the following two AI answers. List the main differences or disagreements in a clear, concise bullet list. "
+    "Focus on substantive points, not style or phrasing."
+)
+
+# ========== MAIN TITLE ==========
 st.markdown("""
 # 🧑 ➡️ 🤖🤝🤖 ➡️ 🧑
-### AI-to-AI Debate & Co-Creation, Centered on You
+### AI-to-AI Enhanced Debate: 2 Rounds, Synthesis & Differences
 """)
 
-# ========== INSTRUCTIONAL UI BLOCKS COMMENTED OUT FOR CLEAN DISPLAY ==========
-# ========= DO NOT DELETE: Important instructions for further development ======
-#
-# with st.expander("How It Works: Modes & Flow"):
-#     st.markdown(\"\"\"
-# **You start the conversation at your computer.  
-# AIs debate and co-create—and the best answers come back, just for you!**
-#
-# **Co-Creation:** Both AIs build, debate, and synthesize ideas (default mode, runs on 'Run Co-Creation').  
-# **Competitive & Critical:** Advanced orchestration modes—coming soon! See roadmap below.
-# ---
-# **Co-Creation Mode (default):**
-# - You enter a topic or question.
-# - ChatGPT and Grok each respond in their own style.
-# - The AIs critique, debate, and build on each other's answers.
-# - At the end, their best points are combined into one final, synthesized answer—by BOTH AIs!
-# **Competitive Mode:**
-# - Each AI is rewarded for outperforming the other—whether by creativity, clarity, or persuasive power.
-# Goal: Simulate a competition where the best ideas, arguments, or insights rise to the top, not just agreement.
-# **Critical Mode:**
-# - Both AIs rigorously critique and challenge each other, focusing on logical flaws, factual accuracy, and missing perspectives.
-# Goal: Simulate an in-depth debate, stress-testing each AI’s reasoning, and surfacing the strongest, most reliable arguments.
-# \"\"\")
-#
-# col1, col2 = st.columns(2)
-# with col1:
-#     st.markdown(\"\"\"
-#     <div style='background:#eef2ff; border-radius:7px; padding:14px 18px; margin-bottom:2px; font-size:1.07em;'>
-#     <b>📌 Current AI Models</b><br>
-#     ChatGPT Model: <span style='color:#1e88e5'>gpt-4-turbo</span><br>
-#     Grok Model: <span style='color:#10a37f'>grok-3-latest</span>
-#     </div>
-#     \"\"\", unsafe_allow_html=True)
-# with col2:
-#     if total_openai_tokens > 0:
-#         estimated_cost = total_openai_tokens / 1_000_000 * 10 # $10/1M tokens output (update as needed)
-#         gpt_cost_str = f"${estimated_cost:.4f}"
-#     else:
-#         gpt_cost_str = "$0.0000"
-#     st.markdown(f\"\"\"
-#     <div style='background:#fef6e0; border-radius:7px; padding:14px 18px; margin-bottom:2px; font-size:1.07em;'>
-#     <b>💰 Estimated API Charges (Pseudo Estimate)</b><br>
-#     ChatGPT (GPT-4-turbo): {gpt_cost_str} <span style='color:#aaa'>(Display only, not guaranteed accurate)</span><br>
-#     Grok: <span style='color:#999'>Unknown (xAI does not provide cost info)</span><br>
-#     <small>Note: ChatGPT cost estimate is for reference only. Always check your OpenAI dashboard for billing.</small>
-#     </div>
-#     \"\"\", unsafe_allow_html=True)
-#
-# with st.expander("🛠️ Developer Reminders / Roadmap"):
-#     st.markdown(\"\"\"
-# - Multimedia Input/Output: Support for voice, video, or image-based conversation—so AIs can co-create with users in any medium, not just text.
-# - Commercial Impact: Enable plug-and-play of multiple AI engines for business users, empowering enterprises to select, combine, or swap AIs freely for each need.
-# - Freedom of AI Choice: Give end users the power to pick and blend the best AIs for any question, anytime—unlocking new potential for personal and professional creativity.
-# - Implement Critical Mode: Add advanced orchestration where AIs "debate" and rigorously critique each other.
-# - Implement Competitive Mode: Add orchestration where AIs are rewarded for being more accurate, creative, or insightful than the other.
-# - Session Memory: Use Streamlit st.session_state to persist chat histories, enabling ongoing conversations—like ChatGPT and Grok web UIs.
-# - User Suggestion for Short Answers: Remind users to specify a word limit (e.g., “under 150 words”) for quick, easy-to-read answers.
-# - Unified Error Handling: Centralize API error management for robustness.
-# - Security: Use only environment variables for secrets. Avoid any plaintext files.
-# - Shared Logic for AI Calls: If API schemas converge, merge ask_chatgpt/ask_grok logic.
-# - Feedback Loop / Self-improvement: Plan for iterative prompting or learning from prior outcomes.
-# - User/Dev UI Separation: Allow toggling developer info so end users aren’t confused.
-# - Metrics & Logging: Add usage analytics and outcome evaluation.
-# - Documentation: Write usage and dev docs.
-# - Testing: Add unit/integration tests for orchestration logic.
-# - Round Control: Allow user or developer to select number of debate rounds (e.g., 3, 5, or 10). See round control pseudo-code below.
-# \"\"\")
-#
-# proceed_3 = st.button("Proceed 3 More Rounds (Pseudo)")
-# proceed_5 = st.button("Proceed 5 More Rounds (Pseudo)")
-# proceed_10 = st.button("Proceed 10 More Rounds (Pseudo)")
-# if critical_mode:
-#     st.warning("Critical Mode is currently a placeholder. In the future, AIs will debate more aggressively, seeking to expose each other’s weaknesses before synthesizing the best answer. (See developer roadmap.)")
-# if competitive_mode:
-#     st.warning("Competitive Mode is currently a placeholder. In the future, AIs will strive to outperform each other, and the app will highlight the most original, insightful, or compelling answer. (See developer roadmap.)")
-#
-# ========= END OF INSTRUCTIONAL BLOCKS =======================================
-
-# ========== MAIN INPUT & COLLABORATION BUTTON ==========
+# ========== USER INPUT ==========
 user_question = st.text_area(
     "",
     height=100,
     placeholder="Describe a question, challenge, or topic for ChatGPT and Grok to debate and co-create an answer."
 )
 
-run_btn = st.button("▶️ Run Co-Creation", key="co_creation", use_container_width=True)
-
-# ========== SESSION MEMORY ==========
-if 'chatgpt_history' not in st.session_state:
-    st.session_state['chatgpt_history'] = []
-if 'grok_history' not in st.session_state:
-    st.session_state['grok_history'] = []
+# ========== FUNCTIONAL BUTTONS ==========
+colA, colB = st.columns([1, 1])
+with colA:
+    run_btn = st.button("▶️ Run Co-Creation", key="co_creation", use_container_width=True)
+with colB:
+    enhanced_btn = st.button("🤺 Run Enhanced Debate (2 Rounds)", key="enhanced_debate", use_container_width=True)
 
 # ========== MAIN LOGIC ==========
-if run_btn and user_question.strip():
-    chatgpt_history = []
-    grok_history = []
-
-    # === Always 2 Rounds as before ===
-    num_rounds = 2
-    for i in range(num_rounds):
-        if i == 0:
-            gpt_prompt = f"{CHATGPT_VOICE}\n\nUser question:\n{user_question.strip()}"
-        else:
-            gpt_prompt = f"{CHATGPT_VOICE}\n\nUser question:\n{user_question.strip()}\n\nPrevious Grok draft:\n{grok_response}"
-        gpt_response = ask_chatgpt(gpt_prompt, history=st.session_state['chatgpt_history'])
-        ai_message_box(gpt_response, "ChatGPT")
-        chatgpt_history.append({"role": "assistant", "content": gpt_response})
-
-        grok_prompt = f"{GROK_VOICE}\n\nUser question:\n{user_question.strip()}\n\nPrevious ChatGPT draft:\n{gpt_response}"
-        grok_response = ask_grok(grok_prompt, GROK_API_KEY, history=st.session_state['grok_history'])
-        ai_message_box(grok_response, "Grok")
-        grok_history.append({"role": "assistant", "content": grok_response})
-
-        # Save to session for true session memory
-        st.session_state['chatgpt_history'] += [{"role": "user", "content": user_question.strip()}] if i == 0 else []
-        st.session_state['chatgpt_history'].append({"role": "assistant", "content": gpt_response})
-        st.session_state['grok_history'] += [{"role": "user", "content": user_question.strip()}] if i == 0 else []
-        st.session_state['grok_history'].append({"role": "assistant", "content": grok_response})
-
-    # === SYNTHESIS PROMPT ===
-    synthesis_prompt = (
-        f"{SYNTHESIZE_PROMPT}\n\n"
-        f"User question:\n{user_question.strip()}\n\n"
-        f"Latest ChatGPT draft:\n{gpt_response}\n\n"
-        f"Latest Grok draft:\n{grok_response}\n"
-    )
-    final_synthesis_chatgpt = ask_chatgpt(synthesis_prompt)
-    final_synthesis_grok = ask_grok(synthesis_prompt, GROK_API_KEY)
-
-    # === Synthesis Evaluation by BOTH AIs ===
-    evaluation_prompt = f"""
-You are an impartial reviewer. Compare this final synthesis to the single answers by ChatGPT and Grok.
-1. Is the synthesis more complete, clearer, or does it miss anything important?
-2. If it is not clearly better, state what is missing or could be improved.
-Here is the original user question:
-{user_question.strip()}
-
-ChatGPT's last answer:
-{gpt_response}
-
-Grok's last answer:
-{grok_response}
-
-Final Synthesis:
-{{synthesis_text}}
-
-In 2-4 bullet points, compare the synthesis to both individual answers. 
-"""
-
-    chatgpt_synth_eval = ask_chatgpt(evaluation_prompt.format(synthesis_text=final_synthesis_chatgpt))
-    grok_synth_eval = ask_grok(evaluation_prompt.format(synthesis_text=final_synthesis_grok), GROK_API_KEY)
-
-    # Display both syntheses side by side
+if enhanced_btn and user_question.strip():
+    # ---- Round 1: Both answer ----
+    st.markdown("## **Round 1**")
     col1, col2 = st.columns(2)
     with col1:
-        ai_message_box(final_synthesis_chatgpt, "ChatGPT Synthesis")
-        st.markdown("""
-        <div style='margin-top:10px; padding:15px; background:#f5f5fc; border-radius:12px; font-size:1.06em; box-shadow:0 1px 3px #0001'>
-            <b>🧠 ChatGPT: Synthesis Self-Assessment</b><br>
-            {}
-        </div>
-        """.format(chatgpt_synth_eval), unsafe_allow_html=True)
+        chatgpt_r1 = ask_chatgpt(
+            f"{CHATGPT_VOICE}\n\nUser question:\n{user_question.strip()}"
+        )
+        ai_message_box(chatgpt_r1, "ChatGPT")
     with col2:
-        ai_message_box(final_synthesis_grok, "Grok Synthesis")
-        st.markdown("""
-        <div style='margin-top:10px; padding:15px; background:#f5f5fc; border-radius:12px; font-size:1.06em; box-shadow:0 1px 3px #0001'>
-            <b>🤖 Grok: Synthesis Self-Assessment</b><br>
-            {}
-        </div>
-        """.format(grok_synth_eval), unsafe_allow_html=True)
-
+        grok_r1 = ask_grok(
+            f"{GROK_VOICE}\n\nUser question:\n{user_question.strip()}",
+            GROK_API_KEY
+        )
+        ai_message_box(grok_r1, "Grok")
+    # ---- Round 1: Each critiques the other's answer ----
+    st.markdown("### **Round 1 Critique**")
+    col3, col4 = st.columns(2)
+    with col3:
+        critique_chatgpt_r1 = ask_chatgpt(
+            f"{CRITIQUE_CHATGPT}\n\nUser question:\n{user_question.strip()}\n\nGrok's answer:\n{grok_r1}"
+        )
+        ai_message_box(critique_chatgpt_r1, "ChatGPT Critique", color="#fff2d9")
+    with col4:
+        critique_grok_r1 = ask_grok(
+            f"{CRITIQUE_GROK}\n\nUser question:\n{user_question.strip()}\n\nChatGPT's answer:\n{chatgpt_r1}",
+            GROK_API_KEY
+        )
+        ai_message_box(critique_grok_r1, "Grok Critique", color="#eaf7ff")
+    # ---- Round 2: Both answer again, having seen critique ----
+    st.markdown("## **Round 2 (Improved)**")
+    col5, col6 = st.columns(2)
+    with col5:
+        chatgpt_r2 = ask_chatgpt(
+            f"{CHATGPT_VOICE}\n\nUser question:\n{user_question.strip()}\n\n"
+            f"Grok's initial answer:\n{grok_r1}\n\n"
+            f"Grok's critique of you:\n{critique_grok_r1}"
+        )
+        ai_message_box(chatgpt_r2, "ChatGPT (Improved)")
+    with col6:
+        grok_r2 = ask_grok(
+            f"{GROK_VOICE}\n\nUser question:\n{user_question.strip()}\n\n"
+            f"ChatGPT's initial answer:\n{chatgpt_r1}\n\n"
+            f"ChatGPT's critique of you:\n{critique_chatgpt_r1}",
+            GROK_API_KEY
+        )
+        ai_message_box(grok_r2, "Grok (Improved)")
+    # ---- Round 2: Critique again ----
+    st.markdown("### **Round 2 Critique**")
+    col7, col8 = st.columns(2)
+    with col7:
+        critique_chatgpt_r2 = ask_chatgpt(
+            f"{CRITIQUE_CHATGPT}\n\nUser question:\n{user_question.strip()}\n\nGrok's improved answer:\n{grok_r2}"
+        )
+        ai_message_box(critique_chatgpt_r2, "ChatGPT Critique (2nd round)", color="#fff2d9")
+    with col8:
+        critique_grok_r2 = ask_grok(
+            f"{CRITIQUE_GROK}\n\nUser question:\n{user_question.strip()}\n\nChatGPT's improved answer:\n{chatgpt_r2}",
+            GROK_API_KEY
+        )
+        ai_message_box(critique_grok_r2, "Grok Critique (2nd round)", color="#eaf7ff")
+    # ---- Self-evaluation (optional, toggleable) ----
+    show_self_eval = st.checkbox("Show each AI's self-evaluation of their final answer", value=True)
+    if show_self_eval:
+        col9, col10 = st.columns(2)
+        with col9:
+            selfeval_chatgpt = ask_chatgpt(
+                f"{SELF_EVAL_CHATGPT}\n\nHere is your latest answer:\n{chatgpt_r2}"
+            )
+            ai_message_box(selfeval_chatgpt, "ChatGPT Self-Eval", color=SELF_EVAL_COLOR)
+        with col10:
+            selfeval_grok = ask_grok(
+                f"{SELF_EVAL_GROK}\n\nHere is your latest answer:\n{grok_r2}",
+                GROK_API_KEY
+            )
+            ai_message_box(selfeval_grok, "Grok Self-Eval", color=SELF_EVAL_COLOR)
+    # ---- Synthesis and Differences ----
+    st.markdown("---")
+    st.subheader("🤝 **Common Ground / Synthesis**")
+    synth_prompt = (
+        f"{SYNTHESIZE_PROMPT}\n\nUser question:\n{user_question.strip()}\n\n"
+        f"ChatGPT final answer:\n{chatgpt_r2}\n\nGrok final answer:\n{grok_r2}"
+    )
+    synthesis = ask_chatgpt(synth_prompt)
+    st.markdown(
+        f"<div style='background:#e9faed;padding:16px;border-radius:12px;font-size:1.1em;'><b>🟩 Synthesized Answer:</b><br>{synthesis}</div>",
+        unsafe_allow_html=True
+    )
+    st.subheader("🔎 **Main Differences**")
+    diff_prompt = (
+        f"{DIFFERENCE_PROMPT}\n\n---\nChatGPT answer:\n{chatgpt_r2}\n---\nGrok answer:\n{grok_r2}\n---"
+    )
+    differences = ask_chatgpt(diff_prompt)
+    st.markdown(
+        f"<div style='background:#fff7e5;padding:16px;border-radius:12px;font-size:1.04em;'><b>🟥 Key Differences:</b><br>{differences}</div>",
+        unsafe_allow_html=True
+    )
     st.markdown(
         """
-        <div style='margin-top:28px; padding:18px; background:#f4efe5; border-radius:14px; font-size:1.13em; box-shadow:0 2px 8px #0001'>
-        💡 <b>What would YOU ask our AI panel?</b><br>
-        Drop your wildest question above and see how the AIs team up to answer.<br>
-        <br>
-        🚀 Curious about the code or want to join the project?<br>
-        <a href='https://github.com/prototypeai100/PrototypeAI' target='_blank'><b>View it on GitHub</b></a> | 
-        <a href='https://www.youtube.com/@PrototypeAI01' target='_blank'><b>Watch the journey on YouTube</b></a>
+        <div style='margin-top:18px; padding:14px; background:#f0f6ff; border-radius:12px; font-size:1.05em;'>
+        💡 <b>Try another topic, or see what happens if you ask for more than two rounds!</b>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+# (You can keep your regular co-creation button and logic as before if you want, but omitted here for clarity.)
 
 # ================= END OF FILE =================
