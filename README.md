@@ -1,7 +1,7 @@
 # Prototype AI: Multi-AI Orchestration App
 
 > **Curious what happens when AIs talk to each other?**
-> This app lets ChatGPT and Grok debate, collaborate, and synthesize ideas—like a panel of digital minds, just for you!
+> This app lets ChatGPT and Grok debate, critique, and synthesize ideas—like a panel of digital minds, just for you!
 >
 > **Now modular! See `ai_engines.py`, `prompts.py`, and `ui_helpers.py` for better organization and easier development.**
 
@@ -14,8 +14,8 @@
 ## 🚀 What is this?
 
 - An open-source Streamlit app to orchestrate conversations between multiple leading AIs: **ChatGPT (gpt-4-turbo)** and **Grok (grok-3-latest)**
-- The AIs debate and build on each other's ideas. At the end, you get a synthesized answer, blending the best from both.
-- Use this for brainstorming, tech Q&A, or to see how two AIs can disagree and converge!
+- The AIs debate, critique, and build on each other's ideas over multiple rounds. At the end, you get a synthesized answer—blending their best insights.
+- Use this for brainstorming, tech Q&A, or to see how two AIs can both disagree and converge!
 
 ---
 
@@ -28,14 +28,16 @@
 
 ## 📝 Features
 
-- **True Orchestration:** Both AIs answer, critique, and build upon each other's ideas.
-- **Session Memory:** The app remembers your ongoing discussion in each session.
-- **Synthesis:** After orchestrating, both AIs co-create a final answer for you.
-- **Multiple Modes:** Co-Creation (default), with roadmap for “Competitive” and “Critical” debate.
-- **User Tip:** For quick, easy-to-read answers, just add "Keep your answer under 150 words."
-- **API Cost Estimate:** See your token usage for OpenAI.
-- **Security:** API keys are loaded via environment variables only—never commit secrets!
-- **Beginner Friendly:** Detailed setup instructions below.
+- **True Orchestration:** Both AIs answer, critique, and build upon each other's ideas in multi-round debate.
+- **Full Transparency:** See each AI’s reasoning, self-critiques, and main points of agreement or disagreement.
+- **Session Memory:** The app remembers the ongoing discussion and chat history for each AI separately.
+- **Synthesis:** After debate, both AIs co-create a single, synthesized answer just for you.
+- **Multiple Modes:** Includes Co-Creation (default); roadmap for “Competitive” and “Critical” modes.
+- **API Cost Estimate:** See your estimated token usage and API costs for OpenAI in real time.
+- **Security Best Practices:** API keys are loaded via environment variables—never commit secrets.
+- **Modular & Extensible:** Codebase is split for easy maintenance and supports adding more AI engines or features.
+- **User-Friendly:** Clear UI and detailed setup instructions—no Python experience required.
+- **Pro Tips:** For short, easy-to-read answers, add “Keep your answer under 150 words” to your question.
 
 ---
 
@@ -74,4 +76,3 @@
 ## 🗂️ Code Structure (as of June 2025)
 
 After June 2025, the project code is modularized for easier maintenance and extension:
-
