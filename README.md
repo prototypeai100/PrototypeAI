@@ -2,6 +2,8 @@
 
 > **Curious what happens when AIs talk to each other?**
 > This app lets ChatGPT and Grok debate, collaborate, and synthesize ideas—like a panel of digital minds, just for you!
+>
+> **Now modular! See `ai_engines.py`, `prompts.py`, and `ui_helpers.py` for better organization and easier development.**
 
 ---
 
@@ -69,47 +71,7 @@
 
 ---
 
-## 🔎 Multi-AI Uniqueness Reviews
+## 🗂️ Code Structure (as of June 2025)
 
-We regularly ask the world’s leading AIs (Perplexity, Grok, Claude, ChatGPT, Gemini, and others) to check if this project is truly unique, and to evaluate its value for society.
+After June 2025, the project code is modularized for easier maintenance and extension:
 
-**Read the latest results:**  
-[2025-06-14-uniqueness-review.md](2025-06-14-uniqueness-review.md)
-
----
-
-## 🛣️ Roadmap & Future Vision
-
-- **Multimedia Support:**  
-  Enable video, audio, and image inputs/outputs, so users can interact with AIs not just via text, but also with voice, video, and other media.  
-  *Imagine uploading a video or speaking your question to get a real-time AI panel debate—making the experience richer and more accessible to everyone.*
-
-- **Business & Commercial Applications:**  
-  This approach empowers new businesses to **leverage multiple AIs for smarter, more adaptive solutions**. Enterprises and developers can select the best AI for each use case, combine insights from different engines, and offer users true freedom—**letting anyone pick or blend the right AI at any moment**.
-
-- **Freedom of AI Choice:**  
-  Our vision is to let users orchestrate, mix, and match any number of AIs—unlocking creativity and innovation in personal and professional contexts.  
-  *The future is open, collaborative, and user-powered.*
-
-- **Scalability & Extensibility:**  
-  Plans to add support for more AI engines (Claude, Gemini, etc.) and custom orchestration logic, so anyone can build their own AI “panel of experts.”
-
----
-
-## 🤝 Contributing
-
-- Open to feedback, issues, and pull requests!
-- See [issues](https://github.com/prototypeai100/PrototypeAI/issues) or suggest new features via GitHub.
-
----
-
-## 📄 License
-
-This project is licensed under the [Apache 2.0 License](LICENSE).
-
----
-
-## ⭐ Stay in Touch
-
-- [YouTube: Prototype AI](https://www.youtube.com/@PrototypeAI01)
-- [GitHub: prototypeai100/PrototypeAI](https://github.com/prototypeai100/PrototypeAI)
