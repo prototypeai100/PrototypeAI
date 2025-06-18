@@ -1,78 +1,139 @@
-# Prototype AI: Multi-AI Orchestration App
+## 1. **Project Summary / Review**
 
-> **Curious what happens when AIs talk to each other?**
-> This app lets ChatGPT and Grok debate, critique, and synthesize ideas—like a panel of digital minds, just for you!
->
-> **Now modular! See `ai_engines.py`, `prompts.py`, and `ui_helpers.py` for better organization and easier development.**
+### **What Does SynerAI Do?**
 
----
+SynerAI is a Python/Streamlit app that enables real-time orchestration between top-tier AIs (ChatGPT & Grok, with easy extension for more) to:
 
-[![View on GitHub](https://img.shields.io/badge/GitHub-prototypeai100/PrototypeAI-blue?logo=github)](https://github.com/prototypeai100/PrototypeAI)
+* **Collaborate, debate, and critique** each other’s answers to a user’s question.
+* Run in three modes:
 
----
+  1. **Co-Creation:** AIs refine each other’s responses and synthesize a best answer.
+  2. **Enhanced Debate:** AIs critique, self-evaluate, and surface differences before synthesis.
+  3. **Critical Debate:** AIs challenge each other rigorously, exposing weaknesses and then improve.
+* **Synthesized output:** Final answers are merged, showing both agreement and disagreement.
+* **Voice input:** Users can ask questions via microphone.
+* **Session memory:** Each AI keeps context over multiple rounds.
+* **Visual UX:** Distinct chat bubbles for each AI, critiques, and syntheses.
 
-## 🚀 What is this?
+### **Code Quality & Modularity**
 
-- An open-source Streamlit app to orchestrate conversations between multiple leading AIs: **ChatGPT (gpt-4-turbo)** and **Grok (grok-3-latest)**
-- The AIs debate, critique, and build on each other's ideas over multiple rounds. At the end, you get a synthesized answer—blending their best insights.
-- Use this for brainstorming, tech Q&A, or to see how two AIs can both disagree and converge!
-
----
-
-## 🖥️ Live Demo & Channel
-
-- [YouTube: Prototype AI](https://www.youtube.com/@PrototypeAI01)
-- *(Live public demo: coming soon!)*
+* **Separation of concerns:** AI logic, UI helpers, prompts, and critique analysis are in separate files.
+* **Extensible:** Adding a new AI or prompt style would be easy.
+* **Reusable components:** Helper functions for display and AI calls.
+* **Open-source ready:** Apache 2.0 licensing in place, and code is annotated for clarity.
 
 ---
 
-## 📝 Features
+## 2. SynerAI
 
-- **True Orchestration:** Both AIs answer, critique, and build upon each other's ideas in multi-round debate.
-- **Full Transparency:** See each AI’s reasoning, self-critiques, and main points of agreement or disagreement.
-- **Session Memory:** The app remembers the ongoing discussion and chat history for each AI separately.
-- **Synthesis:** After debate, both AIs co-create a single, synthesized answer just for you.
-- **Multiple Modes:** Includes Co-Creation (default); roadmap for “Competitive” and “Critical” modes.
-- **API Cost Estimate:** See your estimated token usage and API costs for OpenAI in real time.
-- **Security Best Practices:** API keys are loaded via environment variables—never commit secrets.
-- **Modular & Extensible:** Codebase is split for easy maintenance and supports adding more AI engines or features.
-- **User-Friendly:** Clear UI and detailed setup instructions—no Python experience required.
-- **Pro Tips:** For short, easy-to-read answers, add “Keep your answer under 150 words” to your question.
+**SynerAI** is an open-source orchestration platform that lets the world’s best AIs debate, critique, and co-create—so you get the sharpest, most nuanced answers, every time.
+
+> **“What happens when AIs challenge and inspire each other?”**
 
 ---
 
-## ⚡ Quick Start
+## 🚀 Features
 
-1. **Clone this repo:**
-    ```bash
-    git clone https://github.com/prototypeai100/PrototypeAI.git
-    cd PrototypeAI
-    ```
+* **Multi-AI Orchestration:** ChatGPT and Grok collaborate, debate, and critique—simultaneously.
+* **Three Modes:**
 
-2. **Install Python 3.8+ (not 3.7 or below):**
-    - [Download Python](https://www.python.org/downloads/)
-
-3. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. **Get your API keys:**  
-   - [OpenAI (ChatGPT)](https://chatgpt.com) *(sign in for API and usage)*  
-   - [Grok (xAI)](https://grok.com) *(sign in for access or API keys—currently by invitation or paid plan)*
-
-5. **Create your `.env` file:**  
-   *(never commit your real keys! use `.env.example` as a template)*
-
-6. **Run the app:**
-    ```bash
-    streamlit run ai_orchestration_app.py
-    ```
-
-7. **Ask your question and watch the AIs debate and synthesize an answer for you!**
+  * **Co-Creation:** Synthesize the best ideas from both AIs.
+  * **Enhanced Debate:** Critique, difference-spotting, and self-evaluation.
+  * **Critical Debate:** Maximum challenge, flaw-exposing, and improvement.
+* **Real-Time Synthesis:** Combines perspectives into a final answer for the user.
+* **Visual Chat UI:** Distinct, color-coded AI bubbles and critique displays.
+* **Voice Input:** Ask questions by typing or speaking.
+* **Session Memory:** Each AI “remembers” previous turns for coherent conversations.
+* **Plug-and-Play Extensible:** Easy to add more AI engines or new orchestration modes.
+* **Open Source & Free:** Apache 2.0 licensed. No lock-in.
 
 ---
 
-## 🗂️ Code Structure (as of June 2025)
+## 🖥️ Demo
 
-After June 2025, the project code is modularized for easier maintenance and extension:
+---
+
+## ⚡ Quickstart
+
+### **1. Clone & Install**
+
+```bash
+git clone https://github.com/prototypeai100/SynerAI.git
+cd SynerAI
+pip install -r requirements.txt
+```
+
+### **2. Set API Keys**
+
+* **OpenAI:** [Get an OpenAI API key](https://platform.openai.com/account/api-keys)
+* **Grok:** [Get a Grok/X.ai API key](https://x.ai/)
+
+Create a `.env` file in the project root:
+
+```
+OPENAI_API_KEY=sk-...
+GROK_API_KEY=...
+```
+
+### **3. Run the App**
+
+```bash
+streamlit run ai_orchestration_app.py
+```
+---
+
+## 🎮 How It Works
+
+1. **Ask a question:** Type or use voice input.
+2. **Choose a mode:** Co-creation, Enhanced Debate, or Critical Debate.
+3. **Watch AIs interact:** See how each AI answers, critiques, and synthesizes.
+4. **Get the best answer:** The app delivers a blended, improved result—plus critiques, self-evaluations, and (optionally) a breakdown of disagreements.
+
+---
+
+## 🧩 Architecture Overview
+
+* `ai_orchestration_app.py` — Main Streamlit UI and orchestration logic.
+* `ai_engines.py` — Functions to query ChatGPT and Grok.
+* `prompts.py` — All system and orchestration prompts.
+* `critique_impact.py` — Logic to log and analyze how critiques improved responses.
+* `ui_helpers.py` — Helper to render chat bubbles for AIs, critiques, etc.
+
+---
+
+## 🧑‍💻 For Developers
+
+* **Add more AIs:** Implement a new function in `ai_engines.py` and wire up in the main app.
+* **Change orchestration logic:** Tweak the turn-taking or critique logic in `ai_orchestration_app.py`.
+* **Customize prompts:** Modify or extend system messages in `prompts.py`.
+
+---
+
+## 🔒 License
+
+Apache License 2.0.
+(C) 2025 PrototypeAI100
+
+---
+
+## 🙌 Acknowledgments
+
+* Built on OpenAI and X.ai APIs.
+* Inspired by the dream of AI collaboration.
+* Special thanks to the open-source community.
+
+---
+
+## 🤝 Feedback & Contact
+
+* **Issues? Ideas?** Open a GitHub issue or pull request.
+* **Contact: prototypeai100@gmail.com
+
+---
+
+## 🌟 Why SynerAI?
+
+> *Most AI apps use just one model. Here, AIs debate and refine each other’s thinking, producing more balanced, insightful, and trustworthy answers. You get not just a single answer—but a spectrum of perspectives.*
+
+
+ 
